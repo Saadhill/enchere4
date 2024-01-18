@@ -1,0 +1,74 @@
+
+<html xmlns:th="http://www.thymeleaf.org"
+      data-th-replace="~{layouts/layout :: frag-layout(titre=~{:: title},
+														contenu=~{:: main},
+														ressource=~{:: #ressource-css})
+										}">
+<head>
+    <title>Inscription</title>
+    <th:block id="ressource-css">
+        <link rel="stylesheet" data-th-href="@{/css/demo-form.css}">
+    </th:block>
+</head>
+<body>
+<main>
+
+<!--<form data-th-action="@{/login/creer}" method="post" data-th-object="${utilisateur}">-->
+    <form data-th-object="${utilisateur}" method="post" data-th-action="@{/login/register}">
+    <ul>
+        <li>
+            <label for="inputPseudo">Pseudo:</label>
+            <input type="text" id="inputPseudo" name="pseudo" pattern="^[a-zA-Z0-9]+$" required
+            data-th-field="*{pseudo}"/>
+
+
+            <label for="inputNom">Nom:</label>
+            <input type="text" id="inputNom" name="nom" required
+                   data-th-field="*{nom}"/>
+        </li>
+        <li>
+            <label for="prenom">Prénom:</label>
+            <input type="text" id="prenom" name="prenom" required
+                   data-th-field="*{prenom}"/>
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required
+                   data-th-field="*{email}"/>
+        </li>
+        <li>
+            <label for="telephone">Téléphone:</label>
+            <input type="text" id="telephone" name="telephone" required
+                   data-th-field="*{telephone}"/>
+
+            <label for="rue">Rue:</label>
+            <input type="text" id="rue" name="rue" required
+                   data-th-field="*{rue}"/>
+        </li>
+        <li>
+            <label for="CP">Code postal:</label>
+            <input type="text" id="CP" name="CP" required
+                   data-th-field="*{codePostal}"/>
+
+            <label for="ville">Ville:</label>
+            <input type="text" id="ville" name="ville" required
+                   data-th-field="*{ville}"/>
+        </li>
+
+        <li>
+            <label for="motDePasse">Mot de passe:</label>
+            <input type="password" id="motDePasse" name="motDePasse" required
+                   data-th-field="*{motDePasse}"/>
+            <!--<label for="confirmation">Confirmation:</label>
+            <input type="password" id="confirmation" name="confirmation" required data-th-field="*{motDePasse}"/>-->
+        </li>
+        <li>
+            <button type="submit">Creer</button>
+            <button type="submit">Annuler</button>
+        </li>
+    </ul>
+</form>
+
+</main>
+</body>
+
+</html>

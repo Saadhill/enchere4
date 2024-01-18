@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      data-th-replace="~{layouts/layout :: frag-layout(titre=~{:: title},
+														contenu=~{:: main},
+														ressource=~{::#ressource-css})
+										}">
+<head>
+    <title>Liste des enchères</title>
+    <th:block id="ressource-css">
+        <link rel="stylesheet" data-th-href="@{/css/accueil.css}">
+    </th:block>
+</head>
+<body>
+<main class="center-main">
+    <h1>Liste des enchères</h1>
+
+    <section class="center-section">
+        <h2>Filtres : </h2>
+        <input type="search" id="recherche" name="recherche" />
+        <button>Rechercher</button>
+    </section>
+    <br>
+    <section>
+        <label for="categorie">Catégories :</label>
+        <select name="categorie" id="categorie">
+            <option value="toutesCatégories">Toutes</option>
+            <option value="informatique">Informatique</option>
+            <option value="ameublement">Ameublement</option>
+            <option value="vetement">Vêtement</option>
+            <option value="sport">Sport&Loisirs</option>
+        </select>
+    </section>
+    <br>
+
+<!-- ici on fait apparaître les menus acheteurs et vendeurs quand l'utilisateur est connecté-->
+<section data-th-if="${#authorization.expression('isAuthenticated()')}">
+    <div>
+        <input type="radio" id="achat" name="achat" value="achat" checked />
+        <label for="achat">Achat</label>
+        <br>
+        <input type="checkbox" id="aOuverte" name="ouverte" checked />
+        <label for="aOuverte">enchères ouvertes</label>
+        <br>
+        <input type="checkbox" id="aEnCours" name="enCours" />
+        <label for="aEnCours">mes enchères en cours</label>
+        <br>
+        <input type="checkbox" id="aRemporte" name="remporte" />
+        <label for="aRemporte">mes enchères remportées</label>
+    </div>
+    <br>
+    <div>
+        <input type="radio" id="vente" name="vente" value="vente" disabled/>
+        <label for="vente">Mes ventes</label>
+        <br>
+        <input type="checkbox" id="vOuverte" name="ouverte"disabled/>
+        <label for="vOuverte">Mes ventes en cours</label>
+        <br>
+        <input type="checkbox" id="vEnCours" name="enCours"disabled/>
+        <label for="vEnCours">ventes non débutées</label>
+        <br>
+        <input type="checkbox" id="vRemporte" name="remporte"disabled/>
+        <label for="vRemporte">ventes terminées</label>
+    </div>
+</section>
+    <br>
+    <!-- ici on affiche les enchères en cours-->
+    <section>
+        <ul>
+            <label>Bientôt on arrivera à afficher les enchères en cours ici!</label>
+            <li th:each="enchere : ${encheres}" >
+                <div class="article-box">
+                    <h3 th:text="${enchere.article.nom}"></h3>
+                    <img th:src="${enchere.article.image}" alt="Image de l'article" class="article-image" />
+                    <p>Prix: <span th:text="${enchere.article.prix}"> points</span></p>
+                    <p>Fin de l'enchère: <span th:text="${enchere.article.date_fin_encheres}"></span></p>
+                    <p>Vendeur: <span th:text="${enchere.article.utilisateur.pseudo}"></span></p>
+                </div>
+            </li>
+        </ul>
+    </section>
+
+</main>
+</body>
+</html>
